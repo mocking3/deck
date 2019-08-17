@@ -5,7 +5,8 @@ import (
 	"io/ioutil"
 	"sort"
 	"strings"
-
+	"regexp"
+	
 	"github.com/hbagdi/deck/state"
 	"github.com/hbagdi/deck/utils"
 	yaml "gopkg.in/yaml.v2"
@@ -239,11 +240,14 @@ func KongStateToFile(kongState *state.KongState,
 	if err != nil {
 		return err
 	}
+	
+	re, _ := regexp.Compile("(.*): null")
+	str := re.ReplaceAllString(string(c), "")
 
 	if filename == "-" {
-		_, err = fmt.Print(string(c))
+		_, err = fmt.Print(str)
 	} else {
-		err = ioutil.WriteFile(filename, c, 0600)
+		err = ioutil.WriteFile(filename, []byte(str), 0600)
 	}
 	if err != nil {
 		return err
