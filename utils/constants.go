@@ -5,7 +5,7 @@ import "github.com/hbagdi/go-kong/kong"
 var (
 	serviceDefaults = kong.Service{
 		Port:           kong.Int(80),
-		Retries:        kong.Int(5),
+		Retries:        kong.Int(0),
 		Protocol:       kong.String("http"),
 		ConnectTimeout: kong.Int(60000),
 		WriteTimeout:   kong.Int(60000),
